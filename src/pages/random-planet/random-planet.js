@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 
 import Spinner from '../spinner/spinner';
-import { getPlanet } from '../../services/api';
+import { getPlanet, transformPlanet } from '../../services/api';
 
 import './random-planet.css';
 

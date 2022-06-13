@@ -20,13 +20,14 @@ export const getAllPeople = async () => {
   return res.results;
 };
 
-export const getPerson = (id) => {
-  return getResourse(`${AppUrls.PEOPLE_URL}${id}/`);
+export const getPerson = async (id) => {
+  const person = await getResourse(`${AppUrls.PEOPLE_URL}${id}/`);
+  return person.map(transformPerson);
 };
 
 export const getAllPlanets = async () => {
   const res = await getResourse(AppUrls.PLANETS_URL);
-  return res.results;
+  return res.results.map(transformPlanet);
 };
 
 export const getPlanet = (id) => {
@@ -35,9 +36,49 @@ export const getPlanet = (id) => {
 
 export const getAllStarships = async () => {
   const res = await getResourse(AppUrls.STARSHIPS_URL);
-  return res.results;
+  return res.results.map(transformStarship);
 };
 
 export const getStarship = (id) => {
   return getResourse(`${AppUrls.STARSHIPS_URL}${id}/`);
+};
+
+const extractId = (planet) => {
+  const idRegExp = /\/([0-9]*)\/$/;
+  const id = planet.url.match(idRegExp)[1];
+  return id;
+};
+
+export const transformPlanet = (planet) => {
+  return {
+    id: extractId(planet),
+    name: planet.name,
+    population: planet.population,
+    rotationPeriod: planet.rotation_period,
+    diametr: planet.diametr,
+  };
+};
+
+export const transformStarship = (starship) => {
+  return {
+    id: extractId(starship),
+    name: starship.name,
+    model: starship.model,
+    manufacturer: starship.manufacturer,
+    costInCredits: starship.costInCredits,
+    length: starship.length,
+    crew: starship.crew,
+    passsengers: starship.passsengers,
+    cargoCapacity: starship.cargoCapacity,
+  };
+};
+
+export const transformPerson = (person) => {
+  return {
+    id: extractId(person),
+    name: person.name,
+    gender: person.gender,
+    birthYear: person.birthYear,
+    eyeColor: person.eyeColor,
+  };
 };
