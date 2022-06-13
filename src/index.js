@@ -1,5 +1,6 @@
-import { getPerson } from './services/api.js';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-getPerson(3)
-  .then((people) => console.log(console.log(people.name)))
-  .catch((err) => console.error('Cound not fetch', err));
+import App from './components/app/app.js';
+
+ReactDOM.render(<App />, document.getElementById('root'));
