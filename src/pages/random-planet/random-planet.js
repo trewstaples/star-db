@@ -13,7 +13,7 @@ const RandomPlanet = () => {
   });
 
   useEffect(() => {
-    const id = 10;
+    const id = 1000;
     getPlanet(id).then(onPlanetLoaded);
   }, []);
 
