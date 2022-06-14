@@ -1,8 +1,9 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 
-import Spinner from '../spinner/spinner';
 import { getPlanet } from '../../services/api';
+import Spinner from '../spinner/spinner';
+import ErrorIndicator from '../error-indicator/error-indicator';
 
 import './random-planet.css';
 
@@ -10,12 +11,20 @@ const RandomPlanet = () => {
   const [activePlanet, setActivePlanet] = useState({
     planet: {},
     loading: true,
+    error: false,
   });
 
   useEffect(() => {
-    const id = 1000;
-    getPlanet(id).then(onPlanetLoaded);
+    const id = 10333;
+    getPlanet(id).then(onPlanetLoaded).catch(onError);
   }, []);
+
+  const onError = (err) => {
+    setActivePlanet({
+      error: true,
+      loading: false,
+    });
+  };
 
   const onPlanetLoaded = (planet) => {
     setActivePlanet({
@@ -25,12 +34,17 @@ const RandomPlanet = () => {
   };
 
   const render = () => {
-    const { planet, loading } = activePlanet;
+    const { planet, loading, error } = activePlanet;
+
+    const hasData = !(loading || error);
+
+    const errorMessage = error ? <ErrorIndicator /> : null;
     const spinner = loading ? <Spinner /> : null;
-    const content = !loading ? <PlanetView planet={planet} /> : null;
+    const content = hasData ? <PlanetView planet={planet} /> : null;
 
     return (
       <div className="random-planet jumbotron rounded">
+        {errorMessage}
         {spinner}
         {content}
       </div>
