@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 
 import Spinner from '../spinner/spinner';
-import { getPlanet, transformPlanet } from '../../services/api';
+import { getPlanet } from '../../services/api';
 
 import './random-planet.css';
 
@@ -13,7 +13,7 @@ const RandomPlanet = () => {
   });
 
   useEffect(() => {
-    const id = 12;
+    const id = 10;
     getPlanet(id).then(onPlanetLoaded);
   }, []);
 
@@ -41,13 +41,13 @@ const RandomPlanet = () => {
 };
 
 const PlanetView = ({ planet }) => {
-  const { name, population, rotationPeriod, diameter } = planet;
+  const { id, name, population, rotationPeriod, diameter } = planet;
 
   return (
     <React.Fragment>
       <img
         className="planet-image"
-        src={`https://starwars-visualguide.com/assets/img/planets/${12}.jpg`}
+        src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
         alt="Planet"
       />
       <div>

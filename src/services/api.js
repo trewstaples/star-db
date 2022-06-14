@@ -30,8 +30,9 @@ export const getAllPlanets = async () => {
   return res.results.map(transformPlanet);
 };
 
-export const getPlanet = (id) => {
-  return getResourse(`${AppUrls.PLANETS_URL}${id}/`);
+export const getPlanet = async (id) => {
+  const planet = await getResourse(`${AppUrls.PLANETS_URL}${id}/`);
+  return transformPlanet(planet);
 };
 
 export const getAllStarships = async () => {
