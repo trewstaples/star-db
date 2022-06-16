@@ -15,9 +15,15 @@ const RandomPlanet = () => {
   });
 
   useEffect(() => {
+    updatePlanet();
+    setInterval(updatePlanet, 15000);
+  }, []);
+
+  const updatePlanet = () => {
     const id = Math.floor(Math.random() * 20) + 3;
     getPlanet(id).then(onPlanetLoaded).catch(onError);
-  }, []);
+    console.log('update');
+  };
 
   const onError = (err) => {
     setActivePlanet({
