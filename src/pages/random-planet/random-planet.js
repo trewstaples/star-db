@@ -15,7 +15,7 @@ const RandomPlanet = () => {
   });
 
   useEffect(() => {
-    const id = 10333;
+    const id = Math.floor(Math.random() * 20) + 3;
     getPlanet(id).then(onPlanetLoaded).catch(onError);
   }, []);
 
